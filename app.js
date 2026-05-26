@@ -9,26 +9,19 @@ const connectDB=require('./config/db'); //Appel MongoDB
 connectDB();
 
 const app = express();
+app.use(express.json());
 
-
+const userRoutes = require('./routes/user');
+app.use('/api/users', userRoutes);
 
 
 //Séquence 1 
 // Rendre l'application capable de lire du JSON
-app.use(express.json());
 
 // LA ROUTE DE TEST (Retourne un message de bienvenue)
-app.get('/', (req, res) => {
-    res.status(200).json({ message: "Bienvenue sur l'API TaskFlow !" });
-});
-
-module.exports = app;
-
-
-
-
-
-
+//app.get('/', (req, res) => {
+//    res.status(200).json({ message: "Bienvenue sur l'API TaskFlow !" });
+//});
 
 
 
