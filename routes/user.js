@@ -9,4 +9,7 @@ router.post('/test', userCtrl.createUser);
 // Route pour la lecture
 router.get('/test', userCtrl.getAllUsers);
 
+router.post('/login',userCtrl.login);
+
+
 module.exports = router;
