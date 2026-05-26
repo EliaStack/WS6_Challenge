@@ -1,0 +1,7 @@
+../Autres/
+../OC/
+../UML/
+
+.env
+node_modules/
+
