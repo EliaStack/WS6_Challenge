@@ -52,7 +52,7 @@ exports.login = (req, res, next) => { //Connecter des utilisateurs existants
                                 // Nécessaire pour l'auth des requêtes émises par le client
                                 userId: user._id,
                                 token: jwt.sign(
-                                    { userId: user._id, role: user.role },
+                                    { userId: user._id, role: user.roles },
                                     process.env.JWT_SECRET,
                                     { expiresIn: '24h' }
                                 )

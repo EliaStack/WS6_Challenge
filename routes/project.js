@@ -14,15 +14,16 @@ router.get('/projetGetAll', auth, projectCtrl.getAllProject);
 //Met tous
 router.post('/projetCreate', auth, multer, projectCtrl.createProject);
 
+//Récupère en fonction de l'id
+router.get('/:id', auth, projectCtrl.idProject);
 
 //Mettre à jour
-//router.put('/:id', auth, multer, stuffCtrl.modifyThing); //Appele de la fct modifyThing
+router.patch('/:id', auth, checkRole('ROLE_MANAGER'), multer, projectCtrl.modifyProject);
 
 //Supprimer en fonction de l'id
 //router.delete('/:id', auth, checkRole('ROLE_MANAGER'), stuffCtrl.deleteThing);
 
-//Récupère en fonction de l'id
-//router.get('/:id', auth, stuffCtrl.getOneThing);
+
 
 
 

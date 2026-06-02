@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
     //Récup du token   
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET); //Mettre la clé secrete pour décoder le mdp haché
+        console.log("CONTENU RÉEL DU TOKEN DÉCODÉ :", decodedToken);
         const userId = decodedToken.userId;
         const role = decodedToken.role;
 
@@ -16,6 +17,7 @@ module.exports = (req, res, next) => {
             userId: userId,
             role: role
         };
+        console.log("--- DEBUG AUTH ---", req.auth);
         next();
     } catch (error) {
         res.status(401).json({ error });

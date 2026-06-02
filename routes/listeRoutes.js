@@ -56,17 +56,6 @@ http://localhost:3000/api/users/login
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 ////////////// PROJECT //////////////
 
 //Récupère tous
@@ -78,7 +67,7 @@ syntaxe:
 {
     "title": "Affectation de pôle",
         "description": "Retrouver les discordances de faille sur rotor",
-            " status": "Actif",
+            "status": "Actif",
                 "owner": "6a15a2e27c24e7466ce35145",
                     "members": [
                         "6a15a2457c24e7466ce35144",
@@ -86,3 +75,5 @@ syntaxe:
                     ]
 }
 
+//Lire le project en fonct° de l'id
+http://localhost:3000/api/projet/(rentrer l'id du projet ici)

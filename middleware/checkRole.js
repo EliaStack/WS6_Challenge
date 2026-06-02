@@ -1,5 +1,6 @@
 module.exports = (role) => {
     return (req, res, next) => {
+        console.log("--- DEBUG CHECKROLE ---", req.auth);
         // Vérifie si le rôle de l'utilisateur correspond au rôle requis
         if (req.auth && req.auth.role === role) {
             next();
@@ -8,3 +9,6 @@ module.exports = (role) => {
         }
     };
 };
+
+
+//(req.auth && req.auth.role === role) {
