@@ -4,10 +4,10 @@ const router = express.Router();
 const userCtrl = require('../controllers/user');
 
 // Route pour l'insertion
-router.post('/test', userCtrl.createUser);
+router.post('/userCreate', userCtrl.createUser);
 
 // Route pour la lecture
-router.get('/test', userCtrl.getAllUsers);
+router.get('/userGet', userCtrl.getAllUsers);
 
 router.post('/login',userCtrl.login);
 
