@@ -40,11 +40,8 @@ exports.login = (req, res, next) => { //Connecter des utilisateurs existants
     User.findOne({ email: req.body.email })
         .then(user => {
             if (user === null) {
-                console.log('Test 1');
                 res.status(401).json({ message: 'Paire identifiant/mot de passe incorrecte' });
             } else {
-                console.log('Test 2');
-
                 bcrypt.compare(req.body.password, user.password)
                     .then(valid => {
                         if (!valid) {

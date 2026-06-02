@@ -6,7 +6,7 @@ const projectModel = new mongoose.Schema({
     description: { type: String, required: true },
     startAt:{type: Date, require:true, default: Date.now},
     endAt:{type:Date, required:false},
-    status:{type: String},
+    status:{type: String}, //actif/archivé
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true},
     members: [{ type: mongoose.Schema.Types.ObjectId, ref: "user", required: true}]
 });

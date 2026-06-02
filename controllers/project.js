@@ -1,24 +1,26 @@
-const Thing = require('../models/project'); //Import du modèle de schéma thing 
-const fs = require('fs');
+const Project = require('../models/project'); //Import du modèle de schéma thing 
+const fs = require('fs'); //Créer des fichiers sur le système
+
+//Fonction GET - Récupère tous
+exports.getAllProject = (req, res, next) => {
+    Project.find() //Trouver tt les things
+        .then(things => res.status(200).json(things)) //Récup tableaux des things
+        .catch(error => res.status(400).json({ error }));
+};
+
 
 //Fonction POST - Met tous/Création
-exports.createThing = (req, res, next) => {
-    const thingObject = JSON.parse(req.body.thing);
-    delete thingObject._id;
-    delete thingObject._userId;
-    const thing = new Thing({
-        ...thingObject,
-        userId: req.auth.userId,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //Recomposition de l'URL
-        //Nous utilisons req.protocol pour obtenir le premier segment (dans notre cas 'http').
-        //Nous ajoutons '://', puis utilisons req.get('host') pour résoudre l'hôte du serveur (ici, 'localhost:3000').
-        //Nous ajoutons finalement '/images/' et le nom de fichier pour compléter notre URL
+exports.createProject = (req, res, next) => {
+    const projectObject = req.body;
+    const project = new Project({
+        ...projectObject,
+        userId: req.auth.userId
     });
 
-    thing.save()
-        .then(() => { res.status(201).json({ message: 'Objet enregistré !' }) })
+    project.save()
+        .then(() => { res.status(201).json({ message: 'Projet enregistré !' }) })
         .catch(error => { res.status(400).json({ error }) })
-};
+}
 
 //Fonction PUT - Mettre à jour
 exports.modifyThing = (req, res, next) => {
@@ -70,12 +72,7 @@ exports.getOneThing = (req, res, next) => {
         .catch(error => res.status(404).json({ error }));
 };
 
-//Fonction GET - Récupère tous
-exports.getAllThings = (req, res, next) => {
-    Thing.find() //Trouver tt les things
-        .then(things => res.status(200).json(things)) //Récup tableaux des things
-        .catch(error => res.status(400).json({ error }));
-};
+
 
 
 //Add try catch ds les fct

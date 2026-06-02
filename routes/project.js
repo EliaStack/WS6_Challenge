@@ -4,11 +4,15 @@ const auth = require('../middleware/auth');
 const checkRole = require('../middleware/checkRole');
 const multer = require('../middleware/multer-config');
 
-const stuffCtrl = require('../controllers/stuff'); //Import du fichier js controllers
+const projectCtrl = require('../controllers/project'); //Import du fichier js controllers
 
+//Endpoints REST
+
+//Récupère tous
+router.get('/projetGetAll', auth, projectCtrl.getAllProject);
 
 //Met tous
-//router.post('/', auth, multer, stuffCtrl.createThing); //Apelle de la fct createThing
+router.post('/projetCreate', auth, multer, projectCtrl.createProject);
 
 
 //Mettre à jour
@@ -20,8 +24,7 @@ const stuffCtrl = require('../controllers/stuff'); //Import du fichier js contro
 //Récupère en fonction de l'id
 //router.get('/:id', auth, stuffCtrl.getOneThing);
 
-//Récupère tous
-//router.get('/', auth, stuffCtrl.getAllThings);
+
 
 
 module.exports = router; //Export des données

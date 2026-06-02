@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'); //Importer mongoose lié à MongoDB
 const express = require('express'); //Importer express
 const dotenv = require('dotenv');
-const stuffRoutes = require('./routes/stuff'); //Importndes routes
+const projectRoutes = require('./routes/project'); //Importndes routes
 const userRoutes = require('./routes/user');
 
 dotenv.config();
@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', userRoutes); //Enregistrement des routes, racine de tout ce qui est liée à l'authentification
-app.use('/api/stuff', stuffRoutes); //Remettre le début de la route pour dire que stuffRoutes est envoyé à l'api stuff
+app.use('/api/projet', projectRoutes); //Remettre le début de la route pour dire que stuffRoutes est envoyé à l'api stuff
 
 
 //Séquence 1 
