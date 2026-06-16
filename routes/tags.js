@@ -8,10 +8,10 @@ const tagstCtrl = require('../controllers/tags'); //Import du fichier js control
 //Récupère en fonction de l'id
 router.get('/:id',tagstCtrl.idTags);
 
-//Création du tag OK
+//Création du tag 
 router.post('/tagCreate',auth,multer, tagstCtrl.createTags);
 
-//Modifier le tag OK
+//Modifier le tag 
 router.patch('/:id', multer, tagstCtrl.modifyTags);
 
 //Supprimer un tag

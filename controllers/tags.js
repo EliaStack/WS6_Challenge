@@ -3,9 +3,9 @@ const Tags = require('../models/tag'); //Import du modèle de schéma
 const Project = require('../models/project'); //Import du modèle de schéma thing 
 
 
-//Fonction GET - Récupère en fonction de l'id
+//Fonction GET - Récupère en fonction de l'id d'un projet
 exports.idTags = (req, res, next) => {
-    Tags.findOne({ _id: req.params.id })
+    Tags.find({ project: req.params.id })
         .then(thing => res.status(200).json(thing))
         .catch(error => res.status(404).json({ error }));
 };

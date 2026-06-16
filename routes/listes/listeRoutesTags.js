@@ -7,13 +7,13 @@ syntaxe :
 }
 
 //Modifier le tag
-http://localhost:3000/api/tags/(rentrer l'id du projet ici)
+http://localhost:3000/api/tags/(rentrer l'id du tag ici)
 syntaxe :
 {
     "name": "Tag test modif FAITE"
 }
 
 //Supprimer le tag
-http://localhost:3000/api/tags/(rentrer l'id du projet ici)
+http://localhost:3000/api/tags/(rentrer l'id du tag ici)
 syntaxe: (ne rien mettre)
 
