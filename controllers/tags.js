@@ -24,9 +24,7 @@ exports.createTags = (req, res, next) => {
 
 //Fonction PUT - Mettre à jour
 exports.modifyTags = (req, res, next) => {
-    const tagsObject = req.file ? {
-        ...JSON.parse(req.body.tags),
-    } : { ...req.body };
+    const tagsObject = { ...req.body };
 
     Tags.findOne({ _id: req.params.id })
         .then((tags) => {
@@ -41,17 +39,7 @@ exports.modifyTags = (req, res, next) => {
 
 //Fonction Delete - Suppression du tag
 exports.deleteTags = (req, res, next) => {
-    Tags.findOne({ _id: req.params.id })
-        .then((project) => {
-
-            Tags.updateOne(
-                { _id: req.params.id },
-                { $pull: { tags: req.body.tags } } // On ajoute uniquement l'ID du nouveau membre
-            )
-                .then(() => res.status(200).json({ message: 'Tag supprimé !' }))
-                .catch(error => res.status(400).json({ error }));
-        })
-        .catch((error) => {
-            res.status(500).json({ error });
-        });
+    Tags.deleteOne({ _id: req.params.id })
+        .then(() => { res.status(200).json({ message: 'Tag supprimé !' }) })
+        .catch(error => { res.status(400).json({ error }) });
 };
