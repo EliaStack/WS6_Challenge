@@ -1,10 +1,10 @@
 const project = require('../models/project');
-const Project = require('../models/project'); //Import du modèle de schéma thing 
+const Project = require('../models/project'); //Import du modèle de schéma
 const fs = require('fs'); //Créer des fichiers sur le système
 
 //Fonction GET - Récupère tous
 exports.getAllProject = (req, res, next) => {
-    Project.find() //Trouver tt les things
+    Project.find() //Trouver tt 
         .then(things => res.status(200).json(things)) //Récup tableaux des things
         .catch(error => res.status(400).json({ error }));
 };
