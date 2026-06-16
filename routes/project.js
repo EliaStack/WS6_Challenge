@@ -21,7 +21,7 @@ router.get('/:id', auth, projectCtrl.idProject);
 router.patch('/:id', auth, checkRole('ROLE_MANAGER'), multer, projectCtrl.modifyProject);
 
 //Supprimer en fonction de l'id
-//router.delete('/:id', auth, checkRole('ROLE_MANAGER'), stuffCtrl.deleteThing);
+router.delete('/:id', auth, checkRole('ROLE_MANAGER'), multer, projectCtrl.idDeleteProject);
 
 
 

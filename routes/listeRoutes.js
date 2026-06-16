@@ -77,3 +77,14 @@ syntaxe:
 
 //Lire le project en fonct° de l'id
 http://localhost:3000/api/projet/(rentrer l'id du projet ici)
+
+
+//PATCH Modifier un projet
+http://localhost:3000/api/projet/(rentrer l'id du projet ici)
+
+{
+            "status": "Archivé"
+}
+
+//Delete project
+

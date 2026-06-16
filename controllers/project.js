@@ -39,8 +39,9 @@ exports.modifyProject = (req, res, next) => {
 
     Project.findOne({ _id: req.params.id })
         .then((project) => {
-            if (project.userId != req.auth.userId) {
-                res.status(401).json({ message: 'Not authorized' });
+            console.log(project); 
+            if (project.owner != req.auth.userId) {
+                res.status(401).json({ message: 'Modification non autorisé' });
             } else {
                 Project.updateOne({ _id: req.params.id }, { ...projectObject, _id: req.params.id })
                     .then(() => res.status(200).json({ message: 'Objet modifié!' }))
@@ -53,7 +54,23 @@ exports.modifyProject = (req, res, next) => {
 };
 
 
-
+//Fonction Delete - Supprimer en fonction de l'id
+exports.idDeleteProject = (req, res, next) => {
+    Project.findOne({ _id: req.params.id })
+        .then(project => {
+            if (project.owner != req.auth.userId) {
+                res.status(401).json({ message: 'Suppression non autorisé' });
+            } else {                
+                    Project.deleteOne({ _id: req.params.id })
+                        .then(() => { res.status(200).json({ message: 'Objet supprimé !' }) })
+                        .catch(error => res.status(500).json({ error }));             
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ error });
+        });
+};
+ 
 
 
 
