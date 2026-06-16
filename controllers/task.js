@@ -2,10 +2,47 @@ const task = require('../models/task');
 const Task = require('../models/task');
 
 //Fonction GET - Récupère toutes les tâches
-exports.getAllTask = (req, res, next) => {
-    Task.find() //Trouver tt 
-        .then(things => res.status(200).json(things)) //Récup tableaux
-        .catch(error => res.status(400).json({ error }));
+exports.getAllTask = async (req, res, next) => {
+    try {
+        // 1. Récupération des paramètres de filtrage (étape 2)
+        const { status, priority, dueAt, tags, assignee, sortBy, order } = req.query;
+        let query = {};
+        if (status) query.status = status;
+        if (priority) query.priority = priority;
+        if (dueAt) query.dueAt = dueAt;
+        if (tags) query.tags = tags;
+        if (assignee) query.assignee = assignee;
+
+        // 2. Gestion de la pagination (les valeurs par défaut sont 1 et 10)
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 3;
+        const skip = (page - 1) * limit;
+
+        // 3. Tri
+        let sortOptions = {};
+        if (sortBy) {
+            sortOptions[sortBy] = order === 'desc' ? -1 : 1;
+        }
+
+        // 4. Exécution : on compte le total, puis on récupère les données paginées
+        const total = await Task.countDocuments(query);
+        const tasks = await Task.find(query)
+            .sort(sortOptions)
+            .skip(skip)
+            .limit(limit);
+
+        res.status(200).json({
+            tasks,
+            pagination: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit)
+            }
+        });
+    } catch (error) {
+        res.status(400).json({ error });
+    }
 };
 
 //Fonction POST - Création d'une tâche
@@ -60,18 +97,18 @@ exports.idDeleteTask = (req, res, next) => {
 // Associer un tag à une tâche (PUSH)
 exports.addTagToTask = (req, res, next) => {
     Task.updateOne(
-        { _id: req.params.taskId }, 
+        { _id: req.params.taskId },
         { $push: { tags: req.params.id } } // Utilise req.params.id ici
     )
-    .then(() => res.status(200).json({ message: 'Tag associé !' }))
-    .catch(error => res.status(400).json({ error }));
+        .then(() => res.status(200).json({ message: 'Tag associé !' }))
+        .catch(error => res.status(400).json({ error }));
 };
 
 // Dissocier un tag d'une tâche (PULL)
 exports.removeTagFromTask = (req, res, next) => {
     Task.updateOne(
         { _id: req.params.taskId },
-        { $pull: { tags: req.params.id} }
+        { $pull: { tags: req.params.id } }
     )
         .then(() => res.status(200).json({ message: 'Tag dissocié !' }))
         .catch(error => res.status(400).json({ error }));

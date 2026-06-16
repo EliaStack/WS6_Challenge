@@ -27,10 +27,13 @@ http://localhost:3000/api/task/taskGetAll
 //Delete une tâche
 http://localhost:3000/api/task/(rentrer l'id de la tâche ici)
 
-// Associer un tag à une tâche (PUSH)
 
+//Associer un tag à une tâche 
 http://localhost:3000/api/task/(id de la tâche)/tags/add/(id du tag)
 
+
+//Dissocier un tag d'une tâche 
+http://localhost:3000/api/task/(id de la tâche)/tags/add/(id du tag)
 
 
 
