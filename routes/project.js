@@ -23,7 +23,8 @@ router.patch('/:id', auth, checkRole('ROLE_MANAGER'), multer, projectCtrl.modify
 //Supprimer en fonction de l'id
 router.delete('/:id', auth, checkRole('ROLE_MANAGER'), multer, projectCtrl.idDeleteProject);
 
-
+//Ajouter un membre si les droits
+router.post('/:id', auth, checkRole('ROLE_MANAGER'), multer, projectCtrl.addMembersProject);
 
 
 

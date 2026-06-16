@@ -39,7 +39,7 @@ exports.modifyProject = (req, res, next) => {
 
     Project.findOne({ _id: req.params.id })
         .then((project) => {
-            console.log(project); 
+            console.log(project);
             if (project.owner != req.auth.userId) {
                 res.status(401).json({ message: 'Modification non autorisé' });
             } else {
@@ -60,45 +60,47 @@ exports.idDeleteProject = (req, res, next) => {
         .then(project => {
             if (project.owner != req.auth.userId) {
                 res.status(401).json({ message: 'Suppression non autorisé' });
-            } else {                
-                    Project.deleteOne({ _id: req.params.id })
-                        .then(() => { res.status(200).json({ message: 'Objet supprimé !' }) })
-                        .catch(error => res.status(500).json({ error }));             
-            }
-        })
-        .catch(error => {
-            res.status(500).json({ error });
-        });
-};
- 
-
-
-
-
-
-
-
-
-
-//Fonction Delete - Supprimer en fonction de l'id
-exports.deleteThing = (req, res, next) => {
-    Thing.findOne({ _id: req.params.id })
-        .then(thing => {
-            if (thing.userId != req.auth.userId) {
-                res.status(401).json({ message: 'Not authorized' });
             } else {
-                const filename = thing.imageUrl.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    Thing.deleteOne({ _id: req.params.id })
-                        .then(() => { res.status(200).json({ message: 'Objet supprimé !' }) })
-                        .catch(error => res.status(401).json({ error }));
-                });
+                Project.deleteOne({ _id: req.params.id })
+                    .then(() => { res.status(200).json({ message: 'Objet supprimé !' }) })
+                    .catch(error => res.status(500).json({ error }));
             }
         })
         .catch(error => {
             res.status(500).json({ error });
         });
 };
+
+//Fonction POST - Ajout d'un membre dans un projet
+exports.addMembersProject = (req, res, next) => {
+    Project.findOne({ _id: req.params.id })
+        .then((project) => {
+            // 1. Vérification des droits
+            if (project.owner != req.auth.userId) {
+                return res.status(403).json({ message: 'Ajout non autorisé' });
+            }
+
+            // 2. Utilisation de $addToSet pour ajouter l'ID au tableau sans doublon
+            Project.updateOne(
+                { _id: req.params.id },
+                { $addToSet: { members: req.body.members } } // On ajoute uniquement l'ID du nouveau membre
+            )
+                .then(() => res.status(200).json({ message: 'Ajout terminé !' }))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch((error) => {
+            res.status(500).json({ error });
+        });
+};
+
+
+
+
+
+
+
+
+
 
 
 

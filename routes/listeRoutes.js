@@ -68,7 +68,7 @@ syntaxe:
     "title": "Affectation de pôle",
         "description": "Retrouver les discordances de faille sur rotor",
             "status": "Actif",
-                "owner": "6a15a2e27c24e7466ce35145",
+                "owner": "6a1ea98dafcd4190a759c79f",
                     "members": [
                         "6a15a2457c24e7466ce35144",
                         "6a15b44a45825ac3b875ede0"
@@ -83,8 +83,29 @@ http://localhost:3000/api/projet/(rentrer l'id du projet ici)
 http://localhost:3000/api/projet/(rentrer l'id du projet ici)
 
 {
-            "status": "Archivé"
+    "status": "Archivé"
 }
 
 //Delete project
+http://localhost:3000/api/projet/(rentrer l'id du projet ici)
+
+syntaxe: (ne rien mettre)
+
+
+//Ajout d'un members
+http://localhost:3000/api/projet/(rentrer l'id du projet ici)
+
+syntaxe:
+{
+    "members":
+    "6a1eb1f797fc4b294aab529a"
+
+}
+
+
+
+
+
+
+
 
