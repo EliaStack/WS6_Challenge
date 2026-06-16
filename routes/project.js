@@ -26,6 +26,9 @@ router.delete('/:id', auth, checkRole('ROLE_MANAGER'), multer, projectCtrl.idDel
 //Ajouter un membre si les droits
 router.post('/:id', auth, checkRole('ROLE_MANAGER'), multer, projectCtrl.addMembersProject);
 
+//Supprimer un membre si les droits
+router.delete('/members/:id',auth, checkRole('ROLE_MANAGER'), multer, projectCtrl.deleteMembersProject);
+
 
 
 

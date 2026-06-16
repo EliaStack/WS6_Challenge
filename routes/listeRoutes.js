@@ -103,9 +103,11 @@ syntaxe:
 }
 
 
-
-
-
-
+//Suppression d'un members
+http://localhost:3000/api/projet/members/(rentrer l'id du projet ici)
+syntaxe:
+{
+    "members": "6a15b44a45825ac3b875ede0" //id du membre
+}
 
 

@@ -93,6 +93,27 @@ exports.addMembersProject = (req, res, next) => {
         });
 };
 
+//Fonction Delete - Suppression d'un membre dans un projet
+exports.deleteMembersProject = (req, res, next) => {
+    Project.findOne({ _id: req.params.id })
+        .then((project) => {
+            // 1. Vérification des droits
+            if (project.owner != req.auth.userId) {
+                return res.status(403).json({ message: 'Suppression du membre non autorisé' });
+            }
+
+            // 2. Utilisation de $pull pour retirer l'ID du tableau 'members'
+            Project.updateOne(
+                { _id: req.params.id },
+                { $pull: { members: req.body.members } } // On ajoute uniquement l'ID du nouveau membre
+            )
+                .then(() => res.status(200).json({ message: 'Membre supprimé !' }))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch((error) => {
+            res.status(500).json({ error });
+        });
+};
 
 
 
@@ -103,13 +124,3 @@ exports.addMembersProject = (req, res, next) => {
 
 
 
-
-
-
-//Add try catch ds les fct
-//try {
-//   Thing.find() //Trouver tt les things
-//    res.status(200).json(things) //Récup tableaux des things
-//} catch (err) {
-//   res.status(500).json({ error: 'Erreur lors de l arécupération des projets' })
-//};
